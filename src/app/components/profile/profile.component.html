@@ -1,0 +1,100 @@
+<div *ngIf="user" class="min-h-screen mt-12 max-w-lg mx-auto">
+  <h2 class="text-2xl font-bold mb-4">User Profile</h2>
+  <form
+    (ngSubmit)="onSubmit()"
+    class="bg-gray-100 shadow-xl border-2 border-orange-200 rounded p-12 rounded-lg mb-8"
+  >
+    <div class="mb-4 flex justify-between">
+      <div class="w-1/2 mr-2">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="userFirstName"
+          >First Name:</label
+        >
+        <input
+          type="text"
+          id="userFirstName"
+          name="userFirstName"
+          [(ngModel)]="user.name"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+      <div class="w-1/2 ml-2">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="userLastName"
+          >Last Name:</label
+        >
+        <input
+          type="text"
+          id="userLastName"
+          name="userLastName"
+          [(ngModel)]="user.lastName"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="userEmail"
+        >Email:</label
+      >
+      <input
+        type="email"
+        id="userEmail"
+        name="userEmail"
+        [(ngModel)]="user.email"
+        disabled
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+    <div class="mb-4">
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="userLocation"
+        >Location:</label
+      >
+      <input
+        type="text"
+        id="userLocation"
+        name="userLocation"
+        [(ngModel)]="user.location"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2">Skills:</label>
+      <div class="flex flex-wrap">
+        <div *ngFor="let skill of skills" class="mr-2">
+          <label class="inline-flex items-center">
+            <input
+              type="checkbox"
+              [value]="skill"
+              (change)="toggleSkill(skill)"
+              [checked]="selectedSkills.includes(skill)"
+              class="form-checkbox h-3 w-3 text-blue-600"
+            />
+            <span class="ml-2 text-gray-700">{{ skill }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="bg-blue-500 ml-36 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+      Update
+    </button>
+  </form>
+  
+  
+</div>
+
+<ng-container *ngIf="!user">
+  <div class="min-h-screen flex items-center justify-center">
+    <div
+      class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"
+    ></div>
+  </div>
+</ng-container>

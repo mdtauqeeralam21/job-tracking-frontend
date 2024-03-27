@@ -1,0 +1,87 @@
+<div class="flex flex-col min-h-screen justify-center items-center">
+  <header class="text-center rounded-lg p-4">
+    <h1 class="text-3xl font-bold">ADD JOB</h1>
+  </header>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="jobForm" class="max-w-lg w-full border-2 border-gray-200 shadow-xl p-8">
+    <div class="mb-4" [class.has-error]="jobForm.get('company')?.invalid && jobForm.get('company')?.touched">
+      <label for="company" class="block font-semibold mb-1">Company:</label>
+      <input type="text" id="company" formControlName="company" class="w-full px-3 py-2 border rounded-md" placeholder="Company Name"/>
+      <div *ngIf="jobForm.get('company')?.invalid && jobForm.get('company')?.touched" class="text-red-500">Company is required.</div>
+    </div>
+    
+    <div class="mb-4" [class.has-error]="jobForm.get('position')?.invalid && jobForm.get('position')?.touched">
+      <label for="position" class="block font-semibold mb-1">Position:</label>
+      <input type="text" id="position" formControlName="position" placeholder="Position" class="w-full px-3 py-2 border rounded-md"/>
+      <div *ngIf="jobForm.get('position')?.invalid && jobForm.get('position')?.touched" class="text-red-500">Position is required.</div>
+    </div>
+
+    <div class="mb-4 flex">
+      <div class="w-1/2 mr-2">
+        <label for="status" class="block font-semibold mb-1">Status:</label>
+        <select id="status" formControlName="status" class="w-full px-3 py-2 border rounded-md">
+          <option *ngFor="let statusOption of statusOptions" [value]="statusOption">{{ statusOption }}</option>
+        </select>
+      </div>
+      <div class="w-1/2 ml-2">
+        <label for="jobType" class="block font-semibold mb-1">Job Type:</label>
+        <select id="jobType" formControlName="jobType" class="w-full px-3 py-2 border rounded-md">
+          <option *ngFor="let jobTypeOption of jobTypeOptions" [value]="jobTypeOption">{{ jobTypeOption }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-4 flex mr-4">
+      <div class="mr-4">
+        <label for="isReferral" class="font-semibold mb-1">Referral:</label>
+        <input type="checkbox" id="isReferral" formControlName="isReferral" class="ml-1"/>
+      </div>
+
+      <div class="ml-4">
+        <label for="isRecruiterCall" class="font-semibold mb-1 ">Recruiter Call:</label>
+        <input type="checkbox" id="isRecruiterCall" formControlName="isRecruiterCall" class="ml-1"/>
+      </div>
+    </div>
+
+
+    <div class="mb-4" [class.has-error]="jobForm.get('jobLink')?.invalid && jobForm.get('jobLink')?.touched">
+      <label for="jobLink" class="block font-semibold mb-1">Job Link:</label>
+      <input type="text" id="jobLink" formControlName="jobLink" placeholder="Job URL" class="w-full px-3 py-2 border rounded-md"/>
+      <div *ngIf="jobForm.get('jobLink')?.invalid && jobForm.get('jobLink')?.touched" class="text-red-500">Job Link is required.</div>
+    </div>
+
+    
+    <div class="mb-4" [class.has-error]="jobForm.get('jobDescription')?.invalid && jobForm.get('jobDescription')?.touched">
+      <label for="jobDescription" class="block font-semibold mb-1">Job Description:</label>
+      <textarea id="jobDescription" formControlName="jobDescription" placeholder="Add Job Description here" class="w-full px-3 py-2 border rounded-md"></textarea>
+      <div *ngIf="jobForm.get('jobDescription')?.invalid && jobForm.get('jobDescription')?.touched" class="text-red-500">Job Description is required.</div>
+    </div>
+
+
+    <div class="mb-4" [class.has-error]="jobForm.get('jobLocation')?.invalid && jobForm.get('jobLocation')?.touched">
+      <label for="jobLocation" class="block font-semibold mb-1">Job Location:</label>
+      <input type="text" id="jobLocation" formControlName="jobLocation" placeholder="Location" class="w-full px-3 py-2 border rounded-md"/>
+      <div *ngIf="jobForm.get('jobLocation')?.invalid && jobForm.get('jobLocation')?.touched" class="text-red-500">Job location is required.</div>
+    </div>
+
+    
+
+    <div class="mb-4 flex items-center">
+      <input type="checkbox" id="setReminder" (click)="toggleReminder()" class="mr-2"/>
+      <label for="setReminder" class="font-semibold mb-1">Set Reminder</label>
+    </div>
+
+    <div class="mb-4 flex items-center" *ngIf="setReminder">
+      <label for="reminderDate" class="font-semibold mb-1 mr-2">Reminder Date:</label>
+      <input
+        type="datetime-local"
+        id="reminderDate"
+        formControlName="reminderDate"
+        class="px-3 py-2 border rounded-md"
+        [min]="getMinDate()"
+      />
+    </div>
+
+    <button type="submit" [disabled]="jobForm.invalid" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Add Job</button>
+  </form>
+</div>

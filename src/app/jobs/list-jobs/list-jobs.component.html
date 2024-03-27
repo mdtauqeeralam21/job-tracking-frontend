@@ -1,0 +1,146 @@
+<div class="flex flex-col min-h-screen">
+  <div class="p-4 bg-gray-200">
+    <div class="flex flex-wrap items-center justify-between">
+      <div class="flex items-center">
+        <input
+          type="text"
+          placeholder="Search Position..."
+          class="px-4 py-2 border rounded-md mr-4"
+          [(ngModel)]="searchQuery"
+        />
+        <button
+          class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+          (click)="search()"
+        >
+          Search
+        </button>
+      </div>
+
+      <div class="flex items-center mt-4 sm:mt-0">
+        <select
+          class="px-4 py-2 border rounded-md mr-4"
+          [(ngModel)]="statusFilter"
+        >
+          <option value="all">Status</option>
+          <option
+            *ngFor="let statusOption of statusOptions"
+            [value]="statusOption"
+          >
+            {{ statusOption }}
+          </option>
+        </select>
+
+        <select
+          class="px-4 py-2 border rounded-md mr-4"
+          [(ngModel)]="jobTypeFilter"
+        >
+          <option value="all">Job Type</option>
+          <option
+            *ngFor="let jobTypeOption of jobTypeOptions"
+            [value]="jobTypeOption"
+          >
+            {{ jobTypeOption }}
+          </option>
+        </select>
+
+        <select class="px-4 py-2 border rounded-md" [(ngModel)]="sortOption">
+          <option value="latest">Latest</option>
+          <option value="oldest">Oldest</option>
+          <option value="a-z">A-Z</option>
+          <option value="z-a">Z-A</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="jobs.length > 0; else noJobsMessage" class="mx-8 mb-4">
+    <h2 class="text-lg font-bold mb-4">List of Jobs</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+            >
+              Company
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+            >
+              Position
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+            >
+              Status
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+            >
+              Job Type
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+            >
+              Location
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let job of jobs" class="hover:bg-gray-100">
+            <td class="px-6 py-4 font-bold whitespace-nowrap capitalize">
+              {{ job.company }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap capitalize">
+              {{ job.position }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap capitalize">
+              {{ job.status }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap capitalize">
+              {{ job.jobType }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap capitalize">
+              {{ job.jobLocation }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <button
+                class="text-indigo-600 font-semibold hover:text-indigo-900 mr-4"
+                (click)="jobDetails(job._id)"
+              >
+                Details
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+  <ng-template #noJobsMessage>
+    <div
+      class="min-h-screen flex flex-col items-center justify-center space-y-4"
+    >
+      <p class="text-lg text-gray-700">No jobs added yet.</p>
+      <button
+        (click)="addPage()"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+      >
+        Add Jobs
+      </button>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,156 @@
+<div class="flex flex-col min-h-screen justify-center items-center">
+  <header class="text-center py-8">
+    <h1 class="text-3xl font-bold">Update Job</h1>
+  </header>
+
+  <form
+    (ngSubmit)="onSubmit()"
+    class="max-w-lg shadow-xl border-1 mb-4 border-gray-200 w-full p-8"
+  >
+    <div class="mb-4">
+      <label for="company" class="block mb-1">Company:</label>
+      <input
+        type="text"
+        id="company"
+        name="company"
+        [(ngModel)]="job.company"
+        required
+        class="w-full px-3 py-2 border rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="position" class="block mb-1">Position:</label>
+      <input
+        type="text"
+        id="position"
+        name="position"
+        [(ngModel)]="job.position"
+        required
+        class="w-full px-3 py-2 border rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="jobLink" class="block mb-1">Job Link:</label>
+      <input
+        type="text"
+        id="joblink"
+        name="joblink"
+        [(ngModel)]="job.jobLink"
+        class="w-full px-3 py-2 border rounded-md"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="jobDescription" class="block mb-1">Job Description:</label>
+      <textarea
+        id="jobdescription"
+        name="jobdescription"
+        [(ngModel)]="job.jobDescription"
+        class="w-full px-3 py-2 border rounded-md"
+      ></textarea>
+    </div>
+    <div class="mb-4 flex justify-between">
+      <div class="w-1/2 pr-2">
+        <label for="status" class="block mb-1">Status:</label>
+        <select
+          id="status"
+          name="status"
+          [(ngModel)]="job.status"
+          class="w-full px-3 py-2 border rounded-md"
+        >
+          <option
+            *ngFor="let statusOption of statusOptions"
+            [value]="statusOption"
+          >
+            {{ statusOption }}
+          </option>
+        </select>
+      </div>
+      <div class="w-1/2 pl-2">
+        <label for="jobType" class="block mb-1">Job Type:</label>
+        <select
+          id="jobType"
+          name="jobType"
+          [(ngModel)]="job.jobType"
+          class="w-full px-3 py-2 border rounded-md"
+        >
+          <option
+            *ngFor="let jobTypeOption of jobTypeOptions"
+            [value]="jobTypeOption"
+          >
+            {{ jobTypeOption }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="jobLocation" class="block mb-1">Job Location:</label>
+      <input
+        type="text"
+        id="jobLocation"
+        name="jobLocation"
+        [(ngModel)]="job.jobLocation"
+        required
+        class="w-full px-3 py-2 border rounded-md"
+      />
+    </div>
+
+    <div class="mb-4 flex justify-between">
+      <div class="w-1/2 pr-2">
+        <label for="isReferral" class="block mb-1">Is Referral:</label>
+        <input
+          type="checkbox"
+          id="isReferral"
+          name="isReferral"
+          [(ngModel)]="job.isReferral"
+          class="px-3 py-2 border rounded-md"
+        />
+      </div>
+      <div class="w-1/2 pl-2">
+        <label for="isRecruiterCall" class="block mb-1"
+          >Is Recruiter Call:</label
+        >
+        <input
+          type="checkbox"
+          id="isRecruiterCall"
+          name="isRecruiterCall"
+          [(ngModel)]="job.isRecruiterCall"
+          class="px-3 py-2 border rounded-md"
+        />
+      </div>
+    </div>
+
+    <div class="mb-4 flex items-center">
+      <input
+        type="checkbox"
+        id="setReminder"
+        (click)="toggleReminder()"
+        class="mr-2"
+      />
+      <label for="setReminder" class="font-semibold mb-1"
+        >Update Reminder</label
+      >
+    </div>
+
+    <div class="mb-4 flex items-center" *ngIf="setReminder">
+      <label for="reminderDate" class="font-semibold mb-1 mr-2"
+        >Reminder Date:</label
+      >
+      <input
+  type="datetime-local"
+  id="reminderDate"
+  [(ngModel)]="reminderDate"
+  class="px-3 py-2 border rounded-md"
+  [min]="getMinDate()"
+  (input)="updateReminderDate($event)"
+/>
+
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-blue-500 text-white py-2 px-4 mb-4 rounded-md hover:bg-blue-600"
+    >
+      Update
+    </button>
+  </form>
+</div>
