@@ -6,17 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PasswordService {
-  private apiUrl = 'http://localhost:4000/api/v1';
+  private passwordApi = 'http://localhost:4000/api/v1';
   constructor(private http:HttpClient) { }
   sendResetPasswordEmail(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/forgotpassword`, { email });
+    return this.http.post(`${this.passwordApi}/forgotpassword`, { email });
   }
 
   verifyOTP(email: string, otp: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/verifyotp`, { email, otp });
+    return this.http.post(`${this.passwordApi}/verifyotp`, { email, otp });
   }
 
   setNewPassword(email: string,otp:string, newPassword: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/resetpassword`, { email,otp, newPassword });
+    return this.http.post(`${this.passwordApi}/resetpassword`, { email,otp, newPassword });
   }
 }
